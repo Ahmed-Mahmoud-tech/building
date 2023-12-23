@@ -2,6 +2,7 @@
 //https://sketchfab.com/3d-models/mira-573a125189704a7685389ca6a13d7350  
 import React, { useEffect, useState } from 'react';
 import { Joystick } from 'react-joystick-component';
+import Script from 'next/script'
 
 let rotationInterval;
 let x;
@@ -50,24 +51,31 @@ const [animation, setAnimation] = useState("Static Pose")
   
   return (
     <>
-      <div style={{zIndex:"10000",     position: "absolute"}}>
+      
+                 <Script src={'/assets/aframe.min.js'} strategy="beforeInteractive" />
+      <Script src={'/assets/aframe-extras.js'} strategy="beforeInteractive" />
+      
+      {loaded && <>
+        <div style={{ zIndex: "10000", position: "absolute" }}>
         
-        <Joystick size={100} sticky={false} baseColor="red" stickColor="blue" start={(e) => { setMoveType("start"), camRotation() }} move={(e) => { setX(e.x); setY(e.y) }} stop={() => { setMoveType("stop");   clearInterval(rotationInterval) ; document.querySelector('a-camera').setAttribute("look-controls" , 'enabled:false')}   
- }></Joystick>
-    </div>
+          <Joystick size={100} sticky={false} baseColor="red" stickColor="blue" start={(e) => { setMoveType("start"), camRotation() }} move={(e) => { setX(e.x); setY(e.y) }} stop={() => { setMoveType("stop"); clearInterval(rotationInterval); document.querySelector('a-camera').setAttribute("look-controls", 'enabled:false') }
+          }></Joystick>
+        </div>
 
-     {loaded && <a-scene cursor="rayOrigin: mouse">
+        <a-scene cursor="rayOrigin: mouse">
   
-<a-camera id="camera" position="0 2 0" look-controls="enabled:false" ></a-camera>
+          <a-camera id="camera" position="0 2 0" look-controls="enabled:false" ></a-camera>
 
-        <a-box cursor-listener position="0 1 0" rotation="0 0 0" color="gray" width="1" height="1" onClick={() => alert("Camera")}
-                            depth="40" side="double" scale="1 1 1" id="room"
-                            material="roughness: 1; metalness: 1;shader: standard; emissiveIntensity:1; dithering:true; emissive:black" />
+          <a-box cursor-listener position="0 1 0" rotation="0 0 0" color="gray" width="1" height="1" onClick={() => alert("Camera")}
+            depth="40" side="double" scale="1 1 1" id="room"
+            material="roughness: 1; metalness: 1;shader: standard; emissiveIntensity:1; dithering:true; emissive:black" />
 
-            <a-entity  shadow="receive: false; cast:true"  gltf-model="url(/assets/3dModel/wallace_wells_and_scott_pilgrims_apartment/scene.gltf)" cursor-listener rotation="0 0 0" scale="5 5 5"  ></a-entity>
+          <a-entity shadow="receive: false; cast:true" gltf-model="url(/assets/3dModel/wallace_wells_and_scott_pilgrims_apartment/scene.gltf)" cursor-listener rotation="0 0 0" scale="5 5 5"  ></a-entity>
         
 
-   </a-scene>}
+        </a-scene>
+      </>
+      }
      </>
 
   );

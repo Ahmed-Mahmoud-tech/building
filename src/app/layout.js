@@ -1,6 +1,5 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -12,8 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-           <Script src={'/assets/aframe.min.js'} strategy="beforeInteractive" />
-        <Script src={'/assets/aframe-extras.js'} strategy="beforeInteractive" />
+
       <body className={inter.className}>{children}</body>
     </html>
   )
