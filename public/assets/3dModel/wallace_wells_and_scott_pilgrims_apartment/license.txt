@@ -1,0 +1,11 @@
+Model Information:
+* title:	Wallace Wells and Scott Pilgrim's Apartment
+* source:	https://sketchfab.com/3d-models/wallace-wells-and-scott-pilgrims-apartment-6129dc8cea924c1c87dc2f80a07ada1f
+* author:	Dazariath (https://sketchfab.com/Dazariath)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Wallace Wells and Scott Pilgrim's Apartment" (https://sketchfab.com/3d-models/wallace-wells-and-scott-pilgrims-apartment-6129dc8cea924c1c87dc2f80a07ada1f) by Dazariath (https://sketchfab.com/Dazariath) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
