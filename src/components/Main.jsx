@@ -5,8 +5,9 @@ import { Joystick } from 'react-joystick-component';
 import Script from 'next/script'
 import { IoFootstepsSharp } from "react-icons/io5";
 import { Wrapper } from './Main.styled';
-import feet from '../assets/images/feet.jpg';
+import feet from '../assets/images/step.png';
 import Image from 'next/image'
+import { GiFootprint } from "react-icons/gi";
 
 
 let rotationInterval;
@@ -29,7 +30,7 @@ const Main = () => {
   
   
 const [moveType, setMoveType] = useState("stop")
-const [sliderValue, setSliderValue] = useState(50)
+const [sliderValue, setSliderValue] = useState(10)
 const [animation, setAnimation] = useState("Static Pose")
 
   useEffect(() => {
@@ -42,7 +43,7 @@ const [animation, setAnimation] = useState("Static Pose")
   }, [loaded])
 
 
-    function moveCameraForward() {
+  function moveCameraForward(step = sliderValue) {
       // Get the camera entity
        const camera =  document.querySelector('a-camera');
       // Get the current position and rotation of the camera
@@ -54,9 +55,9 @@ const [animation, setAnimation] = useState("Static Pose")
 
       // Calculate the new position based on rotation
       const newPosition = {
-        x: currentPosition.x - Math.sin(radians) / 50 * sliderValue,  // Adjust based on the desired distance
+        x: currentPosition.x - Math.sin(radians) / 50 * step,  // Adjust based on the desired distance
         y: currentPosition.y,
-        z: currentPosition.z - Math.cos(radians) / 50 * sliderValue,  // Adjust based on the desired distance
+        z: currentPosition.z - Math.cos(radians) / 50 * step,  // Adjust based on the desired distance
       };
 
       // Update the camera position
@@ -71,21 +72,27 @@ const [animation, setAnimation] = useState("Static Pose")
       
   }
   
-  const walking = () => {
+  const walking = (step) => {
 
-    if (WalkingStatus == "stop") {
-      WalkingStatus = "start";
-   
+    clearInterval(walkingInterval)
+    
+    setMoveType("start");
     walkingInterval = setInterval(() => { 
 
-moveCameraForward()
+moveCameraForward(step)
 
     }, 100)
 
-    } else {
-       WalkingStatus = "stop";
+ 
+  }
+
+ 
+
+  const stopWalking = () => {
+ 
+       setMoveType("stop");
       clearInterval(walkingInterval)
-       }
+     
   }
 
 
@@ -106,15 +113,7 @@ moveCameraForward()
  
   }
 
-  const toggleWalk = () => {
-
-    walking();
-    setTimeout(() => {
-      walking()
-    }, 100);
-
-  }
-    
+  
   
   return (
     <>
@@ -122,19 +121,19 @@ moveCameraForward()
       <Script src={'/assets/aframe.min.js'} strategy="beforeInteractive" />
       <Script src={'/assets/aframe-extras.js'} strategy="beforeInteractive" />
       
-      {loaded && <Wrapper feetColor={"orange"}>
+      {loaded && <Wrapper feetColor={ moveType == "stop" ? "#ddd" : "orange"}>
 
-        <div className="sliderContainer z-20 absolute flex left-[50%] top-4 translate-x-[-50%] items-center w-1/2">
-            <Image src={feet} alt="" className='w-6' />
-          <input type="range" min="0" max="100" value={sliderValue} id="myRange" className='slider m-2 slider' onChange={(e) => { setSliderValue(e.target.value); toggleWalk(); console.log(e.target.value)}}  />
-            <Image src={feet} alt=""  className='w-10'/>
-        </div>
+        {moveType == "start" && <div className="sliderContainer z-20 absolute flex left-[50%] top-4 translate-x-[-50%] items-center w-1/2">
+           <span className='text-2xl text-orange-400 '><GiFootprint /></span>
+          <input type="range" min="1" max="100" value={sliderValue} id="myRange" className='slider m-2 slider' onChange={(e) => { setSliderValue(e.target.value); walking(e.target.value)  } }  />
+           <span className=' text-3xl text-orange-400  '><GiFootprint /></span>
+         </div>}
 
         <div className=' absolute z-20 left-0 bottom-0  m-10 '>
-          <Joystick size={75} sticky={false} baseColor="black" stickColor="orange" start={(e) => { setMoveType("start"), camRotation() }} move={(e) => { setX(e.x); setY(e.y) }} stop={() => { setMoveType("stop"); clearInterval(rotationInterval); document.querySelector('a-camera').setAttribute("look-controls", 'enabled:false') } }></Joystick>
+          <Joystick size={75} sticky={false} baseColor="black" stickColor="orange" start={(e) => { camRotation() }} move={(e) => { setX(e.x); setY(e.y) }} stop={() => {clearInterval(rotationInterval); document.querySelector('a-camera').setAttribute("look-controls", 'enabled:false') } }></Joystick>
         </div>
         
-        <button className=' absolute bottom-0 right-0 p-4 z-20  text-5xl m-10 feet' onClick={walking}> <IoFootstepsSharp /> </button>
+        <button className=' absolute bottom-0 right-0 p-4 z-20  text-5xl m-10 feet' onClick={()=> moveType == "stop" ? walking() : stopWalking()}> <IoFootstepsSharp /> </button>
 
         <a-scene cursor="rayOrigin: mouse">
   

@@ -5,6 +5,7 @@ load model
 show popup info 
 tour 
 small map like football game
+create point in each room to navigate
 test with server
 
 
