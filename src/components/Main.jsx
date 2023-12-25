@@ -16,9 +16,10 @@ let WalkingStatus = "stop"
 let x;
 let y;
 
-
-let camRotationX = 0;
-let camRotationY = 0;
+// you can get this value from ===>  document.querySelector('a-camera').components['look-controls'].yawObject.rotation
+let camRotationX = 0.03199999999999996;
+// you can get this value from ===>  document.querySelector('a-camera').components['look-controls'].pitchObject.rotation
+let camRotationY = 89.65493333333306;
 
 
 const Main = () => {
@@ -32,14 +33,31 @@ const Main = () => {
 const [moveType, setMoveType] = useState("stop")
 const [sliderValue, setSliderValue] = useState(10)
 const [animation, setAnimation] = useState("Static Pose")
-
+ const handleOrientation = (e) => {
+    console.log(e, "00000000000000")
+  }
   useEffect(() => {
     setLoaded(true)
     setTimeout(() => {
       setAnimation("Take 001")
     }, 15000);
  
+// setTimeout(() => {
+  
+//   document.querySelector('a-camera').setAttribute('rotation', {x: 0, y: 0, z: 0} )
+    // }, 400);
 
+    setTimeout(() => {
+      
+    
+ let aCamEl = document.querySelector('a-camera');
+    aCamEl.components['look-controls'].pitchObject.rotation.set(camRotationY, 0, 0);
+    aCamEl.components['look-controls'].yawObject.rotation.set(0, -camRotationX, 0);
+  }, 3000);
+
+
+  window.addEventListener('deviceorientation', handleOrientation, true);
+    
   }, [loaded])
 
 
