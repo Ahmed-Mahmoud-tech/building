@@ -34,7 +34,8 @@ const [moveType, setMoveType] = useState("stop")
 const [sliderValue, setSliderValue] = useState(10)
 const [animation, setAnimation] = useState("Static Pose")
  const handleOrientation = (e) => {
-    console.log(e, "00000000000000")
+   console.log(e, "00000000000000")
+   alert("yes")
   }
   useEffect(() => {
     setLoaded(true)
