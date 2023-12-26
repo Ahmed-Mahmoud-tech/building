@@ -31,34 +31,48 @@ const Main = () => {
   
   
 const [moveType, setMoveType] = useState("stop")
+const [rotateMessage, setRotateMessage] = useState(false)
 const [sliderValue, setSliderValue] = useState(10)
 const [animation, setAnimation] = useState("Static Pose")
- const handleOrientation = (e) => {
-   console.log(e, "00000000000000")
-   alert("yes")
-  }
+ 
+  
+  
+  const rotationMessageCheck = () => {
+              if (window.innerHeight > window.innerWidth && window.innerWidth <= 800) {
+          setRotateMessage(true)
+        } else {
+            setRotateMessage(false)
+          }
+      }
   useEffect(() => {
     setLoaded(true)
     setTimeout(() => {
       setAnimation("Take 001")
     }, 15000);
- 
-// setTimeout(() => {
-  
-//   document.querySelector('a-camera').setAttribute('rotation', {x: 0, y: 0, z: 0} )
-    // }, 400);
+
 
     setTimeout(() => {
       
-    
- let aCamEl = document.querySelector('a-camera');
-    aCamEl.components['look-controls'].pitchObject.rotation.set(camRotationY, 0, 0);
-    aCamEl.components['look-controls'].yawObject.rotation.set(0, -camRotationX, 0);
-  }, 3000);
+      if (window.innerWidth <= 800) {
+            let aCamEl = document.querySelector('a-camera');
+           aCamEl.components['look-controls'].pitchObject.rotation.set(camRotationY, 0, 0);
+        aCamEl.components['look-controls'].yawObject.rotation.set(0, -camRotationX, 0);
+  
+      }
 
 
-  window.addEventListener('deviceorientation', handleOrientation, true);
+rotationMessageCheck()
+
+      window.addEventListener('resize', rotationMessageCheck)
     
+      return () => {
+        window.removeEventListener('scroll', rotationMessageCheck);
+      };
+      
+  }, 10);
+
+
+     
   }, [loaded])
 
 
@@ -88,7 +102,6 @@ const [animation, setAnimation] = useState("Static Pose")
         dur: 100,  // Duration in milliseconds
         easing: 'linear',  // Easing function
         });
-      
   }
   
   const walking = (step) => {
@@ -98,9 +111,9 @@ const [animation, setAnimation] = useState("Static Pose")
     setMoveType("start");
     walkingInterval = setInterval(() => { 
 
-moveCameraForward(step)
+    moveCameraForward(step)
 
-    }, 100)
+        }, 100)
 
  
   }
@@ -108,20 +121,16 @@ moveCameraForward(step)
  
 
   const stopWalking = () => {
- 
        setMoveType("stop");
       clearInterval(walkingInterval)
-     
   }
 
 
   const camRotation = () => {
 
     let aCamEl = document.querySelector('a-camera');
-
       aCamEl.setAttribute("look-controls" , 'enabled:true');
-
-      rotationInterval = setInterval(changeRotation, 50);
+      rotationInterval = setInterval(changeRotation, 30);
       function changeRotation () {
         camRotationX += x ? x/50 : 0 
         camRotationY += y ? y/50 : 0 
@@ -146,7 +155,9 @@ moveCameraForward(step)
            <span className='text-2xl text-orange-400 '><GiFootprint /></span>
           <input type="range" min="1" max="100" value={sliderValue} id="myRange" className='slider m-2 slider' onChange={(e) => { setSliderValue(e.target.value); walking(e.target.value)  } }  />
            <span className=' text-3xl text-orange-400  '><GiFootprint /></span>
-         </div>}
+        </div>}
+        
+        {rotateMessage && <div className="rotationMessage text-center font-bold p-5 z-50 h-screen w-screen fixed top-0 left-0 flex justify-center items-center bg-black text-orange-400 text-2xl">Rotate your device for better experience</div> }
 
         <div className=' absolute z-20 left-0 bottom-0  m-10 '>
           <Joystick size={75} sticky={false} baseColor="black" stickColor="orange" start={(e) => { camRotation() }} move={(e) => { setX(e.x); setY(e.y) }} stop={() => {clearInterval(rotationInterval); document.querySelector('a-camera').setAttribute("look-controls", 'enabled:false') } }></Joystick>
