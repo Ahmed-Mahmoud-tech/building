@@ -1,12 +1,12 @@
 mobile control   // checked
-determine spaces limit
-display animation
-load model
-show popup info 
-tour 
+determine spaces limit // checked
+display animation // checked
+preload // checked
+show popup info // checked
 small map like football game
 create point in each room to navigate
 test with server
+tour 
 
 
 

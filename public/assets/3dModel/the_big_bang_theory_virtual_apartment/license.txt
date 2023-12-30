@@ -1,0 +1,11 @@
+Model Information:
+* title:	The Big Bang Theory Virtual Apartment
+* source:	https://sketchfab.com/3d-models/the-big-bang-theory-virtual-apartment-0d8ee60747b34142aa886557c0e3d038
+* author:	iansed (https://sketchfab.com/iansed)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "The Big Bang Theory Virtual Apartment" (https://sketchfab.com/3d-models/the-big-bang-theory-virtual-apartment-0d8ee60747b34142aa886557c0e3d038) by iansed (https://sketchfab.com/iansed) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

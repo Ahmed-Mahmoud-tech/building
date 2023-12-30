@@ -47,4 +47,16 @@ button.a-enter-vr-button{
     display: none;
 }
 
+
+/***************************** */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+#loading-bar {
+    width: 100%;
+    height: 10px; /* Adjust the height of the loading bar */
+}
 `
