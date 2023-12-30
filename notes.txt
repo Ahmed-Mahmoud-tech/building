@@ -3,6 +3,9 @@ determine spaces limit // checked
 display animation // checked
 preload // checked
 show popup info // checked
+speed issue 
+press w for move forward (intro )
+select from saved website
 small map like football game
 create point in each room to navigate
 test with server
