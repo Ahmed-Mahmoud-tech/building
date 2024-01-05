@@ -32,3 +32,8 @@ info popups
 
 
 
+--------------------------------
+you can show 3d abilities not as video only
+
+
+
