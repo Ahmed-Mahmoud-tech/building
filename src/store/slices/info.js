@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export const authSlice = createSlice({
-  name: 'auth',
+export const infoSlice = createSlice({
+  name: 'info',
   initialState: {
     popStatus: false,
     infoTitle: '',
     infoDesc: '',
   },
   reducers: {
-    setPopStatus:  (state, action) => {
-   state.popStatus = action.payload
+    setPopStatus: (state, action) => {
+      state.popStatus = action.payload
     },
     setInfoTitle: (state, action) => {
       state.infoTitle = action.payload
@@ -21,6 +21,6 @@ export const authSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setPopStatus, setInfoTitle, setInfoDesc } = authSlice.actions
+export const { setPopStatus, setInfoTitle, setInfoDesc } = infoSlice.actions
 
-export default authSlice.reducer
+export default infoSlice.reducer

@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import mainReducer from './slices/main'
-import authReducer from './slices/auth'
+
+import infoReducer from './slices/info'
+import areasReducer from './slices/areas'
 
 export default configureStore({
   reducer: {
-    main: mainReducer,
-    auth: authReducer,
+    info: infoReducer,
+    areas: areasReducer,
   },
 })

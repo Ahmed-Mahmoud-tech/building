@@ -3,14 +3,15 @@ determine spaces limit // checked
 display animation // checked
 preload // checked
 show popup info // checked
-speed issue 
-press w for move forward (intro )
-select from saved website
-small map like football game
-create point in each room to navigate
-test with server
-tour 
+speed issue //checked
+press w for move forward (toaster)
+show every model in route
+select from saved website ==> boundaries 
+small map like football game map has button to navigate
+create point in each room to navigate icon like location
 
+
+ 
 
 
 
@@ -34,6 +35,8 @@ info popups
 
 --------------------------------
 you can show 3d abilities not as video only
+what is the next step in the end of meeting
+
 
 
 
