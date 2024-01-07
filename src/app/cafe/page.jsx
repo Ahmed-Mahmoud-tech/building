@@ -33,11 +33,11 @@ export default function Page() {
 
         <a-entity
           shadow="receive: false; cast:true"
-          position="-80  0 50"
-          gltf-model="url(/assets/3dModel/the_big_bang_theory_virtual_apartment_Cartoon/scene.gltf)"
+          position="-10 0 10"
+          gltf-model="url(/assets/3dModel/cafe TABLES/scene.gltf)"
           cursor-listener
           rotation="0 0 0"
-          scale="5 5 5"
+          scale="0.05 0.05 0.05"
         ></a-entity>
       </a-scene>
     </Base>

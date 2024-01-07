@@ -4,8 +4,9 @@ display animation // checked
 preload // checked
 show popup info // checked
 speed issue //checked
-press w for move forward (toaster)
-show every model in route
+press w for move forward (toaster) // checked
+model rotation
+show every model in route 
 select from saved website ==> boundaries 
 small map like football game map has button to navigate
 create point in each room to navigate icon like location

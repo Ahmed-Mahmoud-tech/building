@@ -6,7 +6,6 @@ import Info from '../Info/Info'
 import Controls from '../Controls/Controls'
 import { useSelector, useDispatch } from 'react-redux'
 import { setPopStatus } from '@/store/slices/info'
-import Gid from '../Gid/Gid'
 
 export default function Base({ children }) {
   const dispatch = useDispatch()
@@ -30,7 +29,6 @@ export default function Base({ children }) {
       >
         Create 3D Website
       </button>
-      <Gid />
     </>
   )
 }

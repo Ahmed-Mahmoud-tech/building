@@ -24,7 +24,6 @@ export default function Page() {
           rotation=""
           side="double"
           opacity="0"
-          scale=""
           id="room"
           material="roughness: 1; metalness: 1; emissive: transparent"
           geometry="width: 0.73; height: 6.39; depth: 4.22"
@@ -33,11 +32,11 @@ export default function Page() {
 
         <a-entity
           shadow="receive: false; cast:true"
-          position="-80  0 50"
-          gltf-model="url(/assets/3dModel/the_big_bang_theory_virtual_apartment_Cartoon/scene.gltf)"
+          position="-30 0 10"
+          gltf-model="url(/assets/3dModel/big_room_BICYCLE/scene.gltf)"
           cursor-listener
-          rotation="0 0 0"
-          scale="5 5 5"
+          rotation=" 0  0 0"
+          scale="0.1 0.1 0.1"
         ></a-entity>
       </a-scene>
     </Base>
