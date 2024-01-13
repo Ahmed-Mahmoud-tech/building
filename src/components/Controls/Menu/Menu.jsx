@@ -30,7 +30,7 @@ export default function Menu({ camPosition }) {
           <div className="mapDetails absolute w-[300px]  bg-[#00000078] p-3 right-10">
             <span className="relative">
               <span
-                className="redPoint w-[6px] h-[6px] bg-red-600 absolute rounded-full "
+                className="redPoint w-[6px] h-[6px] bg-orange-600 absolute rounded-full "
                 style={{
                   left: `${mapStartPoint.x}px`,
                   bottom: `${mapStartPoint.y}px`,

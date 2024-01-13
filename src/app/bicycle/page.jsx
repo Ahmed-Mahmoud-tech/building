@@ -30,6 +30,30 @@ export default function Page() {
           // onClick={() => dispatch(setPopStatus(true))}
         ></a-box>
 
+        <a-image
+          src="/assets/images/bicycle/location.png"
+          material="width: 511.62"
+          geometry="height: 5; width: 3"
+          position="23.08211 7 -19.56091"
+          animation="property: rotation;
+        dur: 2000; 
+        easing: linear;
+        loop: true; 
+        to: 0 360 0"
+        ></a-image>
+
+        <a-image
+          src="/assets/images/bicycle/location.png"
+          material="width: 511.62"
+          geometry="height: 5; width: 3"
+          position="50.23914 7 -42.82118"
+          animation="property: rotation;
+        dur: 2000; 
+        easing: linear;
+        loop: true; 
+        to: 0 360 0"
+        ></a-image>
+
         <a-entity
           shadow="receive: false; cast:true"
           position="-19.536 0 4.262"
