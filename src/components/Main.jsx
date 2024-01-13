@@ -40,13 +40,28 @@ const Main = () => {
           material="  color:red"
           geometry="width: 1; height: 1; depth: 1"
         ></a-box> */}
+
         <a-entity
           shadow="receive: false; cast:true"
-          gltf-model="url(/assets/3dModel/wallace_wells_and_scott_pilgrims_apartment/scene.gltf)"
+          gltf-model="url(/assets/3dModel/cafe-misti_MAIN/cafe-misti.glb)"
           cursor-listener
           rotation="0 0 0"
           scale="5 5 5"
         ></a-entity>
+        {/* <a-entity
+          shadow="receive: false; cast:true"
+          gltf-model="url(/assets/3dModel/cafe-misti_MAIN/cafe-misti/source/Misti9/Misti9/misti9.obj)"
+          cursor-listener
+          rotation="0 0 0"
+          scale="5 5 5"
+        ></a-entity> */}
+        {/* <a-entity
+          shadow="receive: false; cast:true"
+          gltf-model="url(/assets/3dModel/cafe-misti_MAIN/scene.gltf)"
+          cursor-listener
+          rotation="0 0 0"
+          scale="5 5 5"
+        ></a-entity> */}
       </a-scene>
     </Base>
   )

@@ -5,18 +5,20 @@ preload // checked
 show popup info // checked
 speed issue //checked
 press w for move forward (toaster) // checked
-model rotation
+model rotation  // checked
 show every model in route 
-select from saved website ==> boundaries 
-small map like football game map has button to navigate
-create point in each room to navigate icon like location
+select from saved website ==> boundaries  // checked
+small map like football game map has button to navigate // checked
+create point in each room to navigate icon like location and add it to map
+mobile rotation bug // from console check rotate from left or right
+
+  
 
 
- 
 
 
 
-
+  
 iphone mobile test
 open money account in other country
 create our website

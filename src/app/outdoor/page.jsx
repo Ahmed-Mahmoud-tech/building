@@ -5,19 +5,22 @@ import { setPopStatus } from '@/store/slices/info'
 import { useDispatch, useSelector } from 'react-redux'
 import ModelRotation from '../../components/ModelRotation/ModelRotation'
 import { setCurrentAreaNumber } from '@/store/slices/areas'
+import { setKeyboardWalking } from '@/store/slices/controls'
 export default function Page() {
   const dispatch = useDispatch()
   dispatch(setCurrentAreaNumber(2))
+  dispatch(setKeyboardWalking(false))
 
   return (
     <>
       <Base>
+        <span className="fixed w-screen h-screen top-0 left-0 bg-red z-10"></span>
         <a-scene cursor="rayOrigin: mouse">
           {/* <a-camera id="camera" position="0 2 0" look-controls="enabled:true" ></a-camera> */}
           <a-camera
             id="camera"
             position="0 7 0"
-            look-controls="enabled:true"
+            look-controls="enabled:false"
             wasd-controls
           ></a-camera>
           <a-box
@@ -55,7 +58,9 @@ export default function Page() {
         ></a-plane> */}
         </a-scene>
       </Base>
-      <ModelRotation rotationX={100} />
+      <span className="z-10">
+        <ModelRotation rotationX={100} />
+      </span>
     </>
   )
 }

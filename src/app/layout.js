@@ -1,7 +1,7 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
 import AppWrapper from '@/components/AppWrapper/AppWrapper'
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
     <AppWrapper>
       <html lang="en">
         <body className={inter.className}>
-          <main className="flex min-h-screen flex-col items-center justify-between p-24">
+          <main className="flex min-h-screen flex-col items-center justify-between p-24 ">
             {children}
           </main>
           <ToastContainer />

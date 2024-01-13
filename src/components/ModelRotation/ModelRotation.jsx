@@ -1,16 +1,30 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Joystick } from 'react-joystick-component'
-
+import { FaHandPointLeft, FaHandPointRight } from 'react-icons/fa6'
+import { Wrapper } from './ModelRotation..styled'
+import { useDispatch } from 'react-redux'
+import {
+  setKeyboardWalking,
+  setRotationNavigation,
+  setWalkingButton,
+} from '@/store/slices/controls'
+let movingStatus = false
+let rotationInterval
+let x = 0
+let y = 0
+let camRotationY = 0
+let modelRotationX
 export default function ModelRotation({ rotationX }) {
-  let movingStatus = false
-  let rotationInterval
-  let x = 0
-  let y = 0
-  let modelRotationX = rotationX
-  let camRotationY = 0
+  const dispatch = useDispatch()
 
+  dispatch(setKeyboardWalking(false))
+  dispatch(setRotationNavigation(false))
+  dispatch(setWalkingButton(false))
+
+  if (!modelRotationX) modelRotationX = rotationX
+  const [sliderValue, setSliderValue] = useState(0)
   function changeRotation() {
-    modelRotationX += x
+    modelRotationX += x / 2
     camRotationY += y ? y / 50 : 0
 
     document
@@ -24,61 +38,54 @@ export default function ModelRotation({ rotationX }) {
     rotationInterval = setInterval(changeRotation, 30)
   }
 
-  const handleKeyUp = (e) => {
-    if (movingStatus == true) {
-      if (e.key === 'ArrowRight' || e.key === 'd') {
-        movingStatus = false
-        clearInterval(rotationInterval)
-      } else if (e.key === 'ArrowLeft' || e.key === 'a') {
-        movingStatus = false
-        clearInterval(rotationInterval)
+  const stopCamRotation = () => {
+    movingStatus = false
+    clearInterval(rotationInterval)
+    document
+      .querySelector('a-camera')
+      .setAttribute('look-controls', 'enabled:false')
+  }
+
+  const changeModelRotation = (value) => {
+    setSliderValue(value)
+    x = parseInt(value)
+    if (x == 0) {
+      stopCamRotation()
+    } else {
+      if (movingStatus == false) {
+        movingStatus = true
+        camRotation()
       }
     }
   }
-
-  const handleKeyDown = (e) => {
-    if (movingStatus == false) {
-      movingStatus = true
-      if (e.key === 'ArrowRight' || e.key === 'd') {
-        x = -1
-        rotationInterval = setInterval(changeRotation, 30)
-      } else if (e.key === 'ArrowLeft' || e.key === 'a') {
-        x = 1
-        rotationInterval = setInterval(changeRotation, 30)
-      }
-    }
-  }
-
-  useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown)
-    document.addEventListener('keyup', handleKeyUp)
-    return () => {
-      removeEventListener('keydown', handleKeyDown)
-      removeEventListener('keydown', handleKeyUp)
-    }
-  }, [])
 
   return (
-    <div className=" absolute z-20 left-20 bottom-0 m-10 ">
-      <Joystick
-        size={75}
-        sticky={false}
-        baseColor="radial-gradient(#0000007a, #414141)"
-        stickColor="radial-gradient(#331700, orange)"
-        start={(e) => {
-          camRotation()
-        }}
-        move={(e) => {
-          x = e.x
-          y = e.y
-        }}
-        stop={() => {
-          clearInterval(rotationInterval)
-          document
-            .querySelector('a-camera')
-            .setAttribute('look-controls', 'enabled:false')
-        }}
-      ></Joystick>
-    </div>
+    <Wrapper>
+      <div className="sliderContainer z-0 absolute flex left-[50%] top-4 translate-x-[-50%] items-center w-1/2 max-w-[30rem]">
+        <button
+          className="text-3xl text-orange-400"
+          onClick={() => x > -5 && changeModelRotation(x - 1)}
+        >
+          <FaHandPointLeft />
+        </button>
+        <input
+          type="range"
+          min="-5"
+          max="5"
+          step="1"
+          value={sliderValue}
+          id="myRange"
+          className="slider m-2  "
+          onChange={(e) => {
+            changeModelRotation(e.target.value)
+          }}
+        />
+        <button className=" text-3xl text-orange-400  ">
+          <FaHandPointRight
+            onClick={() => x < 5 && changeModelRotation(x + 1)}
+          />
+        </button>
+      </div>
+    </Wrapper>
   )
 }

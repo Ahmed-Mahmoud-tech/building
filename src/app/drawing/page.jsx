@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentAreaNumber } from '@/store/slices/areas'
 export default function Page() {
   const dispatch = useDispatch()
-  dispatch(setCurrentAreaNumber(1))
+  dispatch(setCurrentAreaNumber(2))
 
   return (
     <Base>
@@ -14,37 +14,32 @@ export default function Page() {
         {/* <a-camera id="camera" position="0 2 0" look-controls="enabled:true" ></a-camera> */}
         <a-camera
           id="camera"
-          position="5 7 -10"
+          position="0 4 0"
           look-controls="enabled:true"
           wasd-controls
         ></a-camera>
         <a-box
           cursor-listener="true"
-          position="-11.4503 6.47691 0"
+          position="-11.4503 6.47691 -5.7"
           rotation=""
           side="double"
           opacity="0"
+          scale=""
           id="room"
-          color="red"
-          geometry="width: 0.73; height: 6.39; depth: 104.22"
-          // onClick={() => dispatch(setPopStatus(true))}
+          material="roughness: 1; metalness: 1; emissive: transparent"
+          geometry="width: 0.73; height: 6.39; depth: 4.22"
+          onClick={() => dispatch(setPopStatus(true))}
         ></a-box>
 
         <a-entity
           shadow="receive: false; cast:true"
-          position="-19.536 0 4.262"
-          gltf-model="url(/assets/3dModel/big_room_BICYCLE/scene.gltf)"
+          position="0 0 0"
+          gltf-model="url(/assets/3dModel/wallace_wells_and_scott_pilgrims_apartment/scene.gltf)"
           cursor-listener
-          rotation=" 0  0 0"
-          scale="0.1 0.1 0.1"
+          rotation="0 0 0"
+          scale="3 3 3"
         ></a-entity>
       </a-scene>
     </Base>
   )
 }
-
-// -30 , 10
-//   ,
-
-// { x: -19.536, y: 4.262 },
-// { x: -30, y: 10 },

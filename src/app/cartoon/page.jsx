@@ -16,7 +16,7 @@ export default function Page() {
           id="camera"
           position="0 7 0"
           look-controls="enabled:true"
-          wasd-controls
+          // wasd-controls
         ></a-camera>
         <a-box
           cursor-listener="true"

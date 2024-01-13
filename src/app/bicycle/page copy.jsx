@@ -14,25 +14,25 @@ export default function Page() {
         {/* <a-camera id="camera" position="0 2 0" look-controls="enabled:true" ></a-camera> */}
         <a-camera
           id="camera"
-          position="5 7 -10"
+          position="0 7 0"
           look-controls="enabled:true"
           wasd-controls
         ></a-camera>
         <a-box
           cursor-listener="true"
-          position="-11.4503 6.47691 0"
+          position="-11.4503 6.47691 -5.7"
           rotation=""
           side="double"
           opacity="0"
           id="room"
           color="red"
-          geometry="width: 0.73; height: 6.39; depth: 104.22"
+          geometry="width: 0.73; height: 6.39; depth: 4.22"
           // onClick={() => dispatch(setPopStatus(true))}
         ></a-box>
 
         <a-entity
           shadow="receive: false; cast:true"
-          position="-19.536 0 4.262"
+          position="-30 0 10"
           gltf-model="url(/assets/3dModel/big_room_BICYCLE/scene.gltf)"
           cursor-listener
           rotation=" 0  0 0"
@@ -42,9 +42,3 @@ export default function Page() {
     </Base>
   )
 }
-
-// -30 , 10
-//   ,
-
-// { x: -19.536, y: 4.262 },
-// { x: -30, y: 10 },
