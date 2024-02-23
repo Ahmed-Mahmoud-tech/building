@@ -14,9 +14,9 @@ export default function Page() {
         {/* <a-camera id="camera" position="0 2 0" look-controls="enabled:true" ></a-camera> */}
         <a-camera
           id="camera"
-          position="0 3 0"
+          position="0 7 0"
           look-controls="enabled:true"
-          // wasd-controls
+          wasd-controls
         ></a-camera>
         <a-box
           cursor-listener="true"
@@ -33,11 +33,11 @@ export default function Page() {
 
         <a-entity
           shadow="receive: false; cast:true"
-          position="0 0 0"
-          gltf-model="url(/assets/3dModel/mausoleum_mosque/scene.gltf)"
+          position="-10 0 10"
+          gltf-model="url(/assets/3dModel/new/111.glb)"
           cursor-listener
           rotation="0 0 0"
-          scale="1"
+          scale="5 5 5"
         ></a-entity>
       </a-scene>
     </Base>

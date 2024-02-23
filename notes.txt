@@ -9,8 +9,9 @@ model rotation  // checked
 show every model in route 
 select from saved website ==> boundaries  // checked
 small map like football game map has button to navigate // checked
-create point in each room to navigate icon like location and add it to map
-mobile rotation bug // from console check rotate from left or right
+create point in each room to navigate icon like location and add it to map // checked
+mobile rotation bug // from console check rotate from left or right // checked
+show info example // checked
 
   
 
@@ -42,4 +43,16 @@ what is the next step in the end of meeting
 
 
 
+
+
+
+
+*********************************************************************
+http://localhost:3000/bicycle
+http://localhost:3000/cafe
+http://localhost:3000/outdoor
+http://localhost:3000/sydney
+http://localhost:3000/cartoon
+https://docs.google.com/spreadsheets/d/1_JjW367SbY3g0zCQrJ5nBITu9PglK9Cxj4mlElOtXlU/edit#gid=0
+https://sketchfab.com/3d-models/a-man-from-andalusia-f6f7dbe59e04465ca458b3d95a703851
 

@@ -8,7 +8,12 @@ import { Wrapper } from './Controls.styled'
 
 import { GiFootprint } from 'react-icons/gi'
 import PreLoader from '../PreLoader/PreLoader'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  setRotationNavigation,
+  setWalkingButton,
+} from '@/store/slices/controls'
+import Menu from './Menu/Menu'
 
 let rotationInterval
 let walkingInterval
@@ -21,6 +26,7 @@ let camRotationY = 0
 // you can get this value from ===>  document.querySelector('a-camera').components['look-controls'].pitchObject.rotation
 
 export default function Controls({ modelEnv }) {
+  const dispatch = useDispatch()
   const areaCoordinates = useSelector((state) => state.areas.areas)
   const keyboardWalking = useSelector((state) => state.controls.keyboardWalking)
   const rotationNavigation = useSelector(
@@ -28,10 +34,13 @@ export default function Controls({ modelEnv }) {
   )
   const walkingButton = useSelector((state) => state.controls.walkingButton)
   const currentAreaNumber = useSelector(
-    (state) => state.controls.currentAreaNumber
+    (state) => state.areas.currentAreaNumber
   )
 
   const [loaded, setLoaded] = useState(false)
+
+  const [camPositionX, setCamPositionX] = useState(5)
+  const [camPositionY, setCamPositionY] = useState(-10)
 
   const setX = (value) => (x = value)
   const setY = (value) => (y = value)
@@ -48,6 +57,7 @@ export default function Controls({ modelEnv }) {
       setRotateMessage(false)
     }
   }
+
   useEffect(() => {
     setLoaded(true)
     setTimeout(() => {
@@ -90,6 +100,13 @@ export default function Controls({ modelEnv }) {
     return () => {
       removeEventListener('keydown', handleKeyDown)
       removeEventListener('keydown', handleKeyUp)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (window.innerWidth > 800) {
+      dispatch(setWalkingButton(false))
+      dispatch(setRotationNavigation(false))
     }
   }, [])
 
@@ -165,6 +182,9 @@ export default function Controls({ modelEnv }) {
         dur: 100, // Duration in milliseconds
         easing: 'linear', // Easing function
       })
+
+      setCamPositionX(newPosition.x)
+      setCamPositionY(newPosition.z)
     }
   }
 
@@ -202,6 +222,20 @@ export default function Controls({ modelEnv }) {
       )
     }
   }
+
+  useEffect(() => {
+    const handleResize = () => {
+      window.location.reload() // Example: Reload the page
+    }
+
+    // Attach the event listener when the component mounts
+    window.addEventListener('resize', handleResize)
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   return (
     <>
@@ -267,12 +301,12 @@ export default function Controls({ modelEnv }) {
               className="absolute bottom-0 right-0 p-4 z-20  text-5xl m-10 feet"
               onClick={() => (moveType == 'stop' ? walking() : stopWalking())}
             >
-              {' '}
-              <IoFootstepsSharp />{' '}
+              <IoFootstepsSharp />
             </button>
           )}
 
           {modelEnv}
+          <Menu camPosition={{ x: camPositionX, y: camPositionY }} />
         </Wrapper>
       ) : (
         <PreLoader />
