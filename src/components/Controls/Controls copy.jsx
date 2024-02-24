@@ -153,8 +153,8 @@ export default function Controls({ modelEnv }) {
     // Get the camera entity
     const camera = document.querySelector('a-camera')
     // Get the current position and rotation of the camera
-    const currentPosition = camera.getAttribute('position')
     const currentRotation = camera.getAttribute('rotation')
+    const currentPosition = camera.getAttribute('position')
 
     // Convert rotation to radians
     const radians = currentRotation.y * (Math.PI / 180)

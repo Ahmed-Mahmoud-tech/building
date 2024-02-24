@@ -10,36 +10,29 @@ import { Wrapper } from './Controls.styled'
 import { GiFootprint } from 'react-icons/gi'
 import PreLoader from '../PreLoader/PreLoader'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  setRotationNavigation,
-  setWalkingButton,
-} from '@/store/slices/controls'
+import { setRotationNavigation } from '@/store/slices/controls'
 import Menu from './Menu/Menu'
 
-let rotationInterval
 let x
 let y
-let keyboardMoveStatus = false
 let accelerator = 10
 let camRotationX = 0
 let camRotationY = 0
-// you can get this value from ===>  document.querySelector('a-camera').components['look-controls'].pitchObject.rotation
 let firstLoad = 0
 let rotationStatus = false
 let allowedCamPositionX
 let allowedCamPositionZ
 
-var cameraaa
+var cameraEvent
 
 let moveType = 'stop'
 export default function Controls({ modelEnv }) {
   const dispatch = useDispatch()
   const areaCoordinates = useSelector((state) => state.areas.areas)
-  const keyboardWalking = useSelector((state) => state.controls.keyboardWalking)
   const rotationNavigation = useSelector(
     (state) => state.controls.rotationNavigation
   )
-  const walkingButton = useSelector((state) => state.controls.walkingButton)
+  let walkingButton = true
   const currentAreaNumber = useSelector(
     (state) => state.areas.currentAreaNumber
   )
@@ -49,10 +42,9 @@ export default function Controls({ modelEnv }) {
   const setX = (value) => (x = value)
   const setY = (value) => (y = value)
 
-  // const [moveType, setMoveType] = useState('stop')
   const [rotateMessage, setRotateMessage] = useState(false)
   const [sliderValue, setSliderValue] = useState(accelerator)
-  const [animation, setAnimation] = useState('Static Pose')
+  // const [animation, setAnimation] = useState('Static Pose')
 
   const rotationMessageCheck = () => {
     if (window.innerHeight > window.innerWidth && window.innerWidth <= 800) {
@@ -64,16 +56,18 @@ export default function Controls({ modelEnv }) {
 
   useEffect(() => {
     setLoaded(true)
-    setTimeout(() => {
-      setAnimation('Take 001')
-    }, 15000)
 
+    if (window.innerWidth > 800) {
+      walkingButton = false
+      dispatch(setRotationNavigation(false))
+    }
     setTimeout(() => {
+      let aCamEl = document.querySelector('a-camera')
       if (window.innerWidth <= 800) {
         camRotationX = 0.03199999999999996
         camRotationY = 89.65493333333306
 
-        let aCamEl = document.querySelector('a-camera')
+        aCamEl.setAttribute('look-controls', 'enabled:false')
         aCamEl.components['look-controls'].pitchObject.rotation.set(
           camRotationY,
           0,
@@ -84,6 +78,8 @@ export default function Controls({ modelEnv }) {
           -camRotationX,
           0
         )
+      } else {
+        aCamEl.setAttribute('look-controls', 'enabled:true')
       }
 
       rotationMessageCheck()
@@ -95,13 +91,6 @@ export default function Controls({ modelEnv }) {
       }
     }, 10)
   }, [loaded])
-
-  useEffect(() => {
-    if (window.innerWidth > 800) {
-      dispatch(setWalkingButton(false))
-      dispatch(setRotationNavigation(false))
-    }
-  }, [])
 
   function isPointInPolygon(vertices, point) {
     // Assuming vertices is an array of objects with 'x' and 'y' properties
@@ -128,26 +117,20 @@ export default function Controls({ modelEnv }) {
   }
 
   function moveCameraForward(step = sliderValue) {
-    // Get the camera entity
-    // const camera = document.querySelector('a-camera')
-    // // Get the current position and rotation of the camera
-    const currentPosition = cameraaa.position
-    const currentRotation = cameraaa.rotation
+    let aCamEl = document.querySelector('a-camera')
+
+    const currentPosition = cameraEvent.position
+    // const currentRotation = cameraEvent.rotation
+    const currentRotation = aCamEl.getAttribute('rotation')
 
     // Convert rotation to radians
-    // const radians = currentRotation.y * (Math.PI / 180)
-    // const radians = -camRotationY * (Math.PI / 180)
-    const radians = camRotationX * (Math.PI / 180)
+    const radians = currentRotation.y * (Math.PI / 180)
 
-    // Calculate the new position based on rotation
     const newPosition = {
       x: currentPosition.x - (Math.sin(radians) / 50) * step * 0.1, // Adjust based on the desired distance
       y: currentPosition.y,
       z: currentPosition.z - (Math.cos(radians) / 50) * step * 0.1, // Adjust based on the desired distance
     }
-
-    // Update the camera position
-    // camera.setAttribute('position', newPosition);
 
     if (
       !areaCoordinates[currentAreaNumber] ||
@@ -163,12 +146,9 @@ export default function Controls({ modelEnv }) {
 
   const camRotation = () => {
     let aCamEl = document.querySelector('a-camera')
-    aCamEl.setAttribute('look-controls', 'enabled:true')
 
     camRotationX += x ? x / 50 : 0
     camRotationY += y ? y / 50 : 0
-    // cameraaa.rotation.y = -camRotationX
-    // cameraaa.rotation.x = camRotationY
 
     aCamEl.components['look-controls'].pitchObject.rotation.set(
       camRotationY,
@@ -180,29 +160,17 @@ export default function Controls({ modelEnv }) {
       -camRotationX,
       0
     )
-
-    /************************ */
   }
 
-  useEffect(() => {
-    const handleResize = () => {
-      window.location.reload() // Example: Reload the page
-    }
-
-    // Attach the event listener when the component mounts
-    window.addEventListener('resize', handleResize)
-
-    // Clean up the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
+  const handleResize = () => {
+    window.location.reload()
+  }
 
   useEffect(() => {
     if (firstLoad == 0) {
       AFRAME.registerComponent('limit-my-distance', {
         tick: function () {
-          cameraaa = this.el.object3D
+          cameraEvent = this.el.object3D
 
           if (walkingButton) {
             if (moveType == 'start') {
@@ -225,12 +193,21 @@ export default function Controls({ modelEnv }) {
           }
 
           if (rotationStatus) {
+            document
+              .querySelector('a-camera')
+              .setAttribute('look-controls', 'enabled:true')
+
             camRotation()
           }
         },
       })
     }
     firstLoad++
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
   }, [])
 
   return (
@@ -285,10 +262,9 @@ export default function Controls({ modelEnv }) {
                 }}
                 stop={() => {
                   rotationStatus = false
-                  // clearInterval(rotationInterval)
-                  // document
-                  //   .querySelector('a-camera')
-                  //   .setAttribute('look-controls', 'enabled:false')
+                  document
+                    .querySelector('a-camera')
+                    .setAttribute('look-controls', 'enabled:false')
                 }}
               ></Joystick>
             </div>
