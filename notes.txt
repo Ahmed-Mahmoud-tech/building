@@ -56,3 +56,10 @@ http://localhost:3000/cartoon
 https://docs.google.com/spreadsheets/d/1_JjW367SbY3g0zCQrJ5nBITu9PglK9Cxj4mlElOtXlU/edit#gid=0
 https://sketchfab.com/3d-models/a-man-from-andalusia-f6f7dbe59e04465ca458b3d95a703851
 
+
+
+
+
+/// red dot on map 
+/// rotation on outdoor example 
+/// test for all models 

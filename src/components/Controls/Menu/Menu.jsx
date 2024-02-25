@@ -17,6 +17,7 @@ export default function Menu({ camPosition }) {
       easing: 'linear',
     })
   }
+
   const mapPositionPoints = [
     {
       position: { left: '101.44px', bottom: '83.8452px' },
@@ -31,11 +32,6 @@ export default function Menu({ camPosition }) {
     x: camPosition.x * ratio - 3,
     y: camPosition.y * -1 * ratio - 3,
   }
-  // const mapStartPoint = {
-  //   x: (camPosition.x + 4.34) * ratio - 1,
-  //   y: (camPosition.y * -1 + 9.26) * ratio - 1,
-  // }
-  console.log(camPosition, mapStartPoint)
 
   return (
     <div className="menuContainer fixed right-[2rem] text-white top-[3rem]">

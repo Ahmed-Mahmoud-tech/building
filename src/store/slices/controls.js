@@ -5,6 +5,7 @@ export const controlsSlice = createSlice({
   initialState: {
     keyboardWalking: true,
     rotationNavigation: true,
+    walkingButton: true,
   },
   reducers: {
     setKeyboardWalking: (state, action) => {
@@ -14,11 +15,18 @@ export const controlsSlice = createSlice({
     setRotationNavigation: (state, action) => {
       state.rotationNavigation = action.payload
     },
+    setWalkingButton: (state, action) => {
+      state.walkingButton = action.payload
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setKeyboardWalking, setRotationNavigation, setModelRotation } =
-  controlsSlice.actions
+export const {
+  setKeyboardWalking,
+  setRotationNavigation,
+  setModelRotation,
+  setWalkingButton,
+} = controlsSlice.actions
 
 export default controlsSlice.reducer

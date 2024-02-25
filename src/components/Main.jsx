@@ -6,43 +6,15 @@ import Base from './Base/Base'
 import { useDispatch } from 'react-redux'
 import { setCurrentAreaNumber } from '@/store/slices/areas'
 import './script'
-import { useEffect } from 'react'
-
-let x = 0
 
 const Main = () => {
   const dispatch = useDispatch()
-  // dispatch(setCurrentAreaNumber(1))
+  dispatch(setCurrentAreaNumber(0))
   const picture = () => {
     dispatch(setPopStatus(true))
     dispatch(setInfoTitle('this is the picture title'))
     dispatch(setInfoDesc('lorem ipsum dolor sit amet, consectetur adipiscing'))
   }
-
-  // useEffect(() => {
-  //   if (x == 0) {
-  //     AFRAME.registerComponent('limit-my-distance', {
-  //       tick: function () {
-  //         // Limit Z
-  //         if (this.el.object3D.position.z > 100.2) {
-  //           this.el.object3D.position.z = 100.2
-  //         }
-  //         if (this.el.object3D.position.z < -100.2) {
-  //           this.el.object3D.position.z = -100.2
-  //         }
-
-  //         // Limit X
-  //         if (this.el.object3D.position.x > 100.2) {
-  //           this.el.object3D.position.x = 100.2
-  //         }
-  //         if (this.el.object3D.position.x < -100.2) {
-  //           this.el.object3D.position.x = -100.2
-  //         }
-  //       },
-  //     })
-  //   }
-  //   x++
-  // }, [])
 
   return (
     <Base>

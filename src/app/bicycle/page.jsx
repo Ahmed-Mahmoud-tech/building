@@ -4,12 +4,12 @@ import Base from '../../components/Base/Base'
 import { setInfoDesc, setInfoTitle, setPopStatus } from '@/store/slices/info'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentAreaNumber } from '@/store/slices/areas'
+import { setWalkingButton } from '@/store/slices/controls'
 export default function Page() {
   const dispatch = useDispatch()
   dispatch(setCurrentAreaNumber(1))
 
   const camMove = (position) => {
-    console.log('00000000000000')
     const camera = document.querySelector('#camera')
     camera.setAttribute(`animation__move${Math.random()}`, {
       property: 'position',

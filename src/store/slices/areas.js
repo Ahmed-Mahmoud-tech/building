@@ -3,8 +3,26 @@ import { createSlice } from '@reduxjs/toolkit'
 export const areasSlice = createSlice({
   name: 'areas',
   initialState: {
-    currentAreaNumber: 1,
+    currentAreaNumber: 0,
     areas: {
+      0: [
+        {
+          x: 50,
+          y: 50,
+        },
+        {
+          x: 50,
+          y: -50,
+        },
+        {
+          x: -50,
+          y: -50,
+        },
+        {
+          x: -50,
+          y: 50,
+        },
+      ],
       1: [
         {
           x: 0.66,

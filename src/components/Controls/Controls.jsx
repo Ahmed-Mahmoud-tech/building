@@ -10,7 +10,10 @@ import { Wrapper } from './Controls.styled'
 import { GiFootprint } from 'react-icons/gi'
 import PreLoader from '../PreLoader/PreLoader'
 import { useSelector, useDispatch } from 'react-redux'
-import { setRotationNavigation } from '@/store/slices/controls'
+import {
+  setRotationNavigation,
+  setWalkingButton,
+} from '@/store/slices/controls'
 import Menu from './Menu/Menu'
 
 let x
@@ -22,17 +25,38 @@ let firstLoad = 0
 let rotationStatus = false
 let allowedCamPositionX
 let allowedCamPositionZ
+let walkingVariable
+let cameraEvent
+let moveTypeVariable
+let sliderValueVariable
 
-var cameraEvent
-
-let moveType = 'stop'
 export default function Controls({ modelEnv }) {
   const dispatch = useDispatch()
+  // const [allowedCamPositionX, setAllowedCamPositionX] = useState(0)
+  // const [allowedCamPositionZ, setAllowedCamPositionZ] = useState(0)
+  const [updatePosition, setUpdatePosition] = useState(0)
+  const [rotateMessage, setRotateMessage] = useState(false)
+  const [sliderValue, setSliderValue] = useState(accelerator)
+  const [moveType, setMoveType] = useState('stop')
   const areaCoordinates = useSelector((state) => state.areas.areas)
   const rotationNavigation = useSelector(
     (state) => state.controls.rotationNavigation
   )
-  let walkingButton = true
+  const walkingButton = useSelector((state) => state.controls.walkingButton)
+
+  useEffect(() => {
+    moveTypeVariable = moveType
+  }, [moveType])
+  useEffect(() => {
+    walkingVariable = walkingButton
+  }, [walkingButton])
+  useEffect(() => {
+    walkingVariable = walkingButton
+  }, [walkingButton])
+  useEffect(() => {
+    sliderValueVariable = sliderValue
+  }, [sliderValue])
+
   const currentAreaNumber = useSelector(
     (state) => state.areas.currentAreaNumber
   )
@@ -42,8 +66,6 @@ export default function Controls({ modelEnv }) {
   const setX = (value) => (x = value)
   const setY = (value) => (y = value)
 
-  const [rotateMessage, setRotateMessage] = useState(false)
-  const [sliderValue, setSliderValue] = useState(accelerator)
   // const [animation, setAnimation] = useState('Static Pose')
 
   const rotationMessageCheck = () => {
@@ -58,8 +80,10 @@ export default function Controls({ modelEnv }) {
     setLoaded(true)
 
     if (window.innerWidth > 800) {
-      walkingButton = false
+      dispatch(setWalkingButton(false))
       dispatch(setRotationNavigation(false))
+      // } else {
+      //   dispatch(setWalkingButton(true))
     }
     setTimeout(() => {
       let aCamEl = document.querySelector('a-camera')
@@ -116,7 +140,7 @@ export default function Controls({ modelEnv }) {
     return inside
   }
 
-  function moveCameraForward(step = sliderValue) {
+  function moveCameraForward(step = sliderValueVariable) {
     let aCamEl = document.querySelector('a-camera')
 
     const currentPosition = cameraEvent.position
@@ -172,8 +196,8 @@ export default function Controls({ modelEnv }) {
         tick: function () {
           cameraEvent = this.el.object3D
 
-          if (walkingButton) {
-            if (moveType == 'start') {
+          if (walkingVariable) {
+            if (moveTypeVariable == 'start') {
               moveCameraForward()
             }
           } else {
@@ -186,6 +210,8 @@ export default function Controls({ modelEnv }) {
             ) {
               allowedCamPositionX = this.el.object3D.position.x
               allowedCamPositionZ = this.el.object3D.position.z
+              // setAllowedCamPositionX(this.el.object3D.position.x)
+              // setAllowedCamPositionZ(this.el.object3D.position.z)
             } else {
               this.el.object3D.position.z = allowedCamPositionZ
               this.el.object3D.position.x = allowedCamPositionX
@@ -231,7 +257,6 @@ export default function Controls({ modelEnv }) {
                 onChange={(e) => {
                   setSliderValue(e.target.value)
                   accelerator = e.target.value
-                  // walking(e.target.value)
                 }}
               />
               <span className=" text-3xl text-orange-400  ">
@@ -273,7 +298,7 @@ export default function Controls({ modelEnv }) {
             <button
               className="absolute bottom-0 right-0 p-4 z-20  text-5xl m-10 feet"
               onClick={() => {
-                moveType == 'stop' ? (moveType = 'start') : (moveType = 'stop')
+                moveType == 'stop' ? setMoveType('start') : setMoveType('stop')
               }}
             >
               <IoFootstepsSharp />
@@ -281,9 +306,9 @@ export default function Controls({ modelEnv }) {
           )}
 
           {modelEnv}
-          {/* <Menu
-            camPosition={{ x: allowedCamPositionX, y: allowedCamPositionY }}
-          /> */}
+          <Menu
+            camPosition={{ x: allowedCamPositionX, y: allowedCamPositionZ }}
+          />
         </Wrapper>
       ) : (
         <PreLoader />
