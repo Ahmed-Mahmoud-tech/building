@@ -32,8 +32,8 @@ let sliderValueVariable
 
 export default function Controls({ modelEnv }) {
   const dispatch = useDispatch()
-  // const [allowedCamPositionX, setAllowedCamPositionX] = useState(0)
-  // const [allowedCamPositionZ, setAllowedCamPositionZ] = useState(0)
+  const [mapZ, setMapZ] = useState(0)
+  const [mapX, setMapX] = useState(0)
   const [updatePosition, setUpdatePosition] = useState(0)
   const [rotateMessage, setRotateMessage] = useState(false)
   const [sliderValue, setSliderValue] = useState(accelerator)
@@ -165,6 +165,8 @@ export default function Controls({ modelEnv }) {
     ) {
       currentPosition.x = newPosition.x
       currentPosition.z = newPosition.z
+      setMapX(newPosition.x)
+      setMapZ(newPosition.z)
     }
   }
 
@@ -210,8 +212,8 @@ export default function Controls({ modelEnv }) {
             ) {
               allowedCamPositionX = this.el.object3D.position.x
               allowedCamPositionZ = this.el.object3D.position.z
-              // setAllowedCamPositionX(this.el.object3D.position.x)
-              // setAllowedCamPositionZ(this.el.object3D.position.z)
+              setMapX(allowedCamPositionX)
+              setMapZ(allowedCamPositionZ)
             } else {
               this.el.object3D.position.z = allowedCamPositionZ
               this.el.object3D.position.x = allowedCamPositionX
@@ -306,9 +308,7 @@ export default function Controls({ modelEnv }) {
           )}
 
           {modelEnv}
-          <Menu
-            camPosition={{ x: allowedCamPositionX, y: allowedCamPositionZ }}
-          />
+          <Menu camPosition={{ x: mapX, y: mapZ }} />
         </Wrapper>
       ) : (
         <PreLoader />

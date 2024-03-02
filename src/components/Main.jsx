@@ -39,20 +39,42 @@ const Main = () => {
           geometry="width: 0.73; height: 6.39; depth: 4.22"
         ></a-box>
 
-        <a-entity
+        {/* <a-entity
           shadow="receive: false; cast:true"
           gltf-model="url(/assets/3dModel/cafe-misti_MAIN/cafe-misti.glb)"
           cursor-listener
           rotation="0 0 0"
           scale="5 5 5"
-        ></a-entity>
-        {/* <a-entity
-          position="-150 -10 -300 "
+        ></a-entity> */}
+        <a-entity
+          position="0 0 0"
           shadow="receive: false; cast:true"
-          gltf-model="url(/assets/3dModel/test/66666666666.gltf)"
+          gltf-model="url(/assets/3dModel/x3/mclaren_p1.c4d.fbx)"
+          // gltf-model="url(/assets/3dModel/x/yyyyyy.gltf)"
+          // gltf-model="url(/assets/3dModel/test/66666666666.gltf)"
           cursor-listener
           rotation="0 0 0"
-          scale="2 2 2"
+          scale="6 6 6 "
+        ></a-entity>
+        {/* <a-entity
+          position="0 0 0"
+          shadow="receive: false; cast:true"
+          gltf-model="url(/assets/3dModel/x2/wwwwww.gltf)"
+          // gltf-model="url(/assets/3dModel/x/yyyyyy.gltf)"
+          // gltf-model="url(/assets/3dModel/test/66666666666.gltf)"
+          cursor-listener
+          rotation="0 0 0"
+          scale="6 6 6 "
+        ></a-entity> */}
+        {/* <a-entity
+          position="0 0 0"
+          shadow="receive: false; cast:true"
+          gltf-model="url(/assets/3dModel/x2/wwwwww.gltf)"
+          // gltf-model="url(/assets/3dModel/x/yyyyyy.gltf)"
+          // gltf-model="url(/assets/3dModel/test/66666666666.gltf)"
+          cursor-listener
+          rotation="0 0 0"
+          scale="6 6 6 "
         ></a-entity> */}
       </a-scene>
     </Base>

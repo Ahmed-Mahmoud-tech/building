@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import map from '../../../assets/images/bicycle/map.png'
 import { FaMapLocationDot } from 'react-icons/fa6'
 import Image from 'next/image'
